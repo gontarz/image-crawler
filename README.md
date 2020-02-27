@@ -16,7 +16,7 @@ body : {"url":url to crawl or get data}
 
 
 #### komentarz
-Chchiałem stworzyć ciekawe rozwiązanie z wykorzystaniem asyncio.
+Chciałem stworzyć ciekawe rozwiązanie z wykorzystaniem asyncio.
 
 Plusy:
 - Funkcjonalność jest zapewniona
