@@ -13,10 +13,10 @@ down:
 	@docker-compose down
 
 migrations:
-	@docker exec -it semantive_crawler alembic revision --autogenerate;
+	@docker exec -it image_crawler alembic revision --autogenerate;
 
 migrate:
-	@docker exec -it semantive_crawler alembic upgrade head;
+	@docker exec -it image_crawler alembic upgrade head;
 
 psql:
-	@docker exec -it semantive_crawler_postgres psql -U postgres
+	@docker exec -it image_crawler_postgres psql -U postgres

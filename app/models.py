@@ -11,11 +11,11 @@ from app.settings import DB_URI
 
 Base = declarative_base()
 
-Session = sessionmaker(autocommit=False,
-                       autoflush=False,
-                       bind=create_engine(DB_URI))
+session_factory = sessionmaker(autocommit=False,
+                               autoflush=False,
+                               bind=create_engine(DB_URI))
 
-db_session = scoped_session(Session)
+db_session = scoped_session(session_factory)
 
 
 class TimestampMixin(object):

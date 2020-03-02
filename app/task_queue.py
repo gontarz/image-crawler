@@ -25,7 +25,7 @@ async def check_task_status(task_id, redis):
 
 
 async def validate_image(raw_data):
-    """check image type and existence in filesystem"""
+    """Check image type and existence in filesystem"""
     if what_img('', raw_data):
         img_md5 = md5(raw_data).hexdigest()
         image_path = f'{IMAGES_DIR_PATH}/{img_md5}'
@@ -51,7 +51,7 @@ async def fetch_image(session, url):
 
 
 async def fetch_images(ctx, url):
-    logger.debug(f'Fetch images from {url}')
+    logger.info(f'Fetch images from {url}')
     session = ctx['session']
 
     async with session.get(url) as response:
@@ -74,6 +74,7 @@ async def fetch_images(ctx, url):
 
 
 async def fetch_text(ctx, url):
+    logger.info(f'Fetch text from {url}')
     session = ctx['session']
 
     async with session.get(url) as response:

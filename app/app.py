@@ -54,8 +54,6 @@ def create_app():
         arq_redis_cleanup
     ])
 
+    logger.info(f'application created')
+
     return app
-
-
-if __name__ == '__main__':
-    web.run_app(create_app())

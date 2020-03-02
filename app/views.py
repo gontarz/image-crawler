@@ -16,7 +16,6 @@ logger = logging.getLogger(__name__)
 
 def internal_error_response(error):
     response_body = {'status': 'failed', 'reason': str(error)}
-    logger.error(error)
     return web.json_response(data=response_body, status=500)
 
 
@@ -34,7 +33,7 @@ async def get_task_status(request):
             task_id=task_id,
             redis=request.app['arq_redis']
         )
-        return web.json_response(data={'status': f'{status}'}, status=200)
+        return web.json_response(data={'status': 'success', 'task_status': f'{status}'}, status=200)
 
     except Exception as e:
         return internal_error_response(e)
@@ -44,13 +43,12 @@ async def get_receive(request):
     try:
         request_body = await request.json()
         url = request_body['url']
-        # logger.error(url)
         data = URL.as_dict(url)
-        # logger.error(data)
 
         return web.json_response(data=data, status=200, dumps=extended_dump)
 
     except Exception as e:
+        logger.error(e)
         return internal_error_response(e)
 
 
@@ -66,6 +64,7 @@ async def post_crawl_images(request):
         return web.json_response(data=data, status=201)
 
     except Exception as e:
+        logger.error(e)
         return internal_error_response(e)
 
 
@@ -81,4 +80,5 @@ async def post_crawl_text(request):
         return web.json_response(data=data, status=201)
 
     except Exception as e:
+        logger.error(e)
         return internal_error_response(e)

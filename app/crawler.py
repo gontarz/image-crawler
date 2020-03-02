@@ -7,9 +7,12 @@ import re
 
 from bs4 import BeautifulSoup
 
+VISIBLE_RESTRICTED = ['!DOCTYPE', 'style', 'script', '[document]', 'head', 'title']
+
 
 def visible(element):
-    if element.parent.name in ['style', 'script', '[document]', 'head', 'title']:
+    """filter function for soup data"""
+    if element.parent.name in VISIBLE_RESTRICTED:
         return False
     elif re.match('<!--.*-->', str(element.encode('utf-8'))):
         return False
@@ -27,4 +30,5 @@ async def extract_images_links(html):
     soup = BeautifulSoup(html, 'html.parser')
     image_tags = soup.findAll('img')
     images_links = set([image_tag.get('src') for image_tag in image_tags if image_tag.get('src')])
+
     return images_links
