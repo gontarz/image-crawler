@@ -54,8 +54,6 @@ class TestQueue(unittest.IsolatedAsyncioTestCase):
 
         self.assertEqual(expected, crawled)
 
-
-
     #
     # async def on_cleanup(self):
     #     events.append("cleanup")

@@ -7,7 +7,7 @@ from sqlalchemy import create_engine, func, Column, Integer, String, TIMESTAMP, 
 from sqlalchemy.ext.declarative import declarative_base, declared_attr
 from sqlalchemy.orm import relationship, scoped_session, sessionmaker, joinedload
 
-from app.settings import DB_URI
+from app.settings import DB_URI, IMAGES_DIR
 
 Base = declarative_base()
 
@@ -96,3 +96,10 @@ class Image(TimestampMixin, Base):
 
     url_id = Column(Integer, ForeignKey('url.id'))
     url = relationship("URL", back_populates="images")
+
+    def as_dict(self, with_rel_paths=True):
+        result = super().as_dict()
+        if with_rel_paths:
+            result['path'] = f'{IMAGES_DIR}/{self.md5}'
+
+        return result

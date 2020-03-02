@@ -29,7 +29,7 @@ class TestCrawler(unittest.TestCase):
 
 class TestCrawlerAsync(unittest.IsolatedAsyncioTestCase):
     async def test_extract_text(self):
-        with open(os.path.join(BASE_DIR, 'app/tests/test_html/example..html')) as html:
+        with open(os.path.join(BASE_DIR, 'app/tests/test_html/example.html')) as html:
             crawled = await extract_text(html)
         expected = '''Example Domain
 This domain is for use in illustrative examples in documents. You may use this

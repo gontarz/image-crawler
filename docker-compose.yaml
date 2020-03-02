@@ -8,7 +8,7 @@ services:
       - "/var/run/postgres/postgres.sock:/var/run/postgres/postgres.sock"
       - "db_data:/var/lib/postgresql/data"
     env_file:
-      - config/app/.env.db
+      - config/env/.env.db
     ports:
       - 5432:5432
 
@@ -36,7 +36,7 @@ services:
       - ./:/app
       - "images:/app/images"
     env_file:
-      - config/app/.env.app
+      - config/env/.env.app
     command: gunicorn run_app:application -b :8080 --worker-class aiohttp.GunicornWebWorker --reload --access-logfile -
     expose:
       - 8080
