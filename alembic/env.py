@@ -31,6 +31,12 @@ target_metadata = Base.metadata
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
 
+section = config.config_ini_section
+config.set_section_option(section, "POSTGRES_USER", os.environ.get("POSTGRES_USER"))
+config.set_section_option(section, "POSTGRES_PASSWORD", os.environ.get("POSTGRES_PASSWORD"))
+config.set_section_option(section, "POSTGRES_HOST", os.environ.get("POSTGRES_HOST"))
+config.set_section_option(section, "POSTGRES_DB", os.environ.get("POSTGRES_DB"))
+
 
 def run_migrations_offline():
     """Run migrations in 'offline' mode.

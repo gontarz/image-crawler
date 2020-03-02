@@ -10,13 +10,13 @@ from arq.connections import RedisSettings
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 DB_CONFIG = {
-    'host': 'postgres',
-    'port': '5432',
-    'user': 'postgres',
-    'password': 'postgres',
-    'database': 'postgres'
+    'host': os.environ.get('POSTGRES_HOST'),
+    'port': os.environ.get('POSTGRES_PORT'),
+    'user': os.environ.get('POSTGRES_USER'),
+    'password': os.environ.get('POSTGRES_PASSWORD'),
+    'database': os.environ.get('POSTGRES_DB')
 }
-DB_URI = 'postgres://postgres:postgres@postgres/postgres'
+DB_URI = f'postgres://{DB_CONFIG["user"]}:{DB_CONFIG["password"]}@{DB_CONFIG["host"]}/{DB_CONFIG["database"]}'
 
 REDIS_HOST = 'redis'
 REDIS_PORT = 6379

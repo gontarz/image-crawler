@@ -2,21 +2,19 @@ version: '3.2'
 
 services:
   postgres:
-      image: postgres:latest
-      container_name: semantive_crawler_postgres
-      volumes:
+    image: postgres:latest
+    container_name: image_crawler_postgres
+    volumes:
       - "/var/run/postgres/postgres.sock:/var/run/postgres/postgres.sock"
       - "db_data:/var/lib/postgresql/data"
-      environment:
-          - POSTGRES_USER=postgres
-          - POSTGRES_PASSWORD=postgres
-          - POSTGRES_DB=postgres
-      ports:
+    env_file:
+      - config/app/.env.db
+    ports:
       - 5432:5432
 
   redis:
     image: redis:latest
-    container_name: semantive_crawler_redis
+    container_name: image_crawler_redis
     volumes:
       - "redis_data:/data"
     ports:
@@ -33,10 +31,12 @@ services:
 
   web:
     build: .
-    container_name: semantive_crawler
+    container_name: image_crawler
     volumes:
       - ./:/app
       - "images:/app/images"
+    env_file:
+      - config/app/.env.app
     command: gunicorn run_app:application -b :8080 --worker-class aiohttp.GunicornWebWorker --reload --access-logfile -
     expose:
       - 8080
@@ -46,6 +46,7 @@ services:
 
   nginx:
     image: nginx:latest
+    container_name: image_crawler_nginx
     ports:
       - 8080:8080
     volumes:

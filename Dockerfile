@@ -4,6 +4,6 @@ WORKDIR /app
 
 ADD . /app
 
-RUN pip install -r requirements.txt
+RUN python setup.py develop
 
 EXPOSE 8080
